@@ -114,21 +114,18 @@ function gameObject() {
         },
     };
 }
-
 function numPointsScored(playerName) {
+    const game = gameObject();
+    const teams = [game.home, game.away];
 
-const game = gameObject();
-  const teams = [game.home, game.away];
-  for (const team of teams) {
-    const players = team.players;
-    if (playerName in players) {
-        const player = players[playerName];
-return player.points;
-}
+    for (const team of teams) {
+        const players = team.players;
 
+        if (playerName in players) {
+            return players[playerName].points;
+        }
+    }
 }
-}
-console.log(numPointsScored("Ben Gordon"));
 
 
 function shoeSize(playerName) {
@@ -139,8 +136,7 @@ function shoeSize(playerName) {
         const players = team.players;
 
         if (playerName in players) {
-            const player = players[playerName];
-            return player.shoe;
+            return players[playerName].shoe;
         }
     }
 }
@@ -171,11 +167,10 @@ function playerNumbers(teamName) {
 
     for (const team of teams) {
         if (team.teamName === teamName) {
-            const players = team.players;
             const numbers = [];
 
-            for (const playerName in players) {
-                numbers.push(players[playerName].number);
+            for (const playerName in team.players) {
+                numbers.push(team.players[playerName].number);
             }
 
             return numbers;
@@ -189,10 +184,8 @@ function playerStats(playerName) {
     const teams = [game.home, game.away];
 
     for (const team of teams) {
-        const players = team.players;
-
-        if (playerName in players) {
-            return players[playerName];
+        if (playerName in team.players) {
+            return team.players[playerName];
         }
     }
 }
@@ -206,10 +199,8 @@ function bigShoeRebounds() {
     let rebounds = 0;
 
     for (const team of teams) {
-        const players = team.players;
-
-        for (const playerName in players) {
-            const player = players[playerName];
+        for (const playerName in team.players) {
+            const player = team.players[playerName];
 
             if (player.shoe > biggestShoe) {
                 biggestShoe = player.shoe;
@@ -230,10 +221,8 @@ function mostPointsScored() {
     let topPlayer = "";
 
     for (const team of teams) {
-        const players = team.players;
-
-        for (const playerName in players) {
-            const player = players[playerName];
+        for (const playerName in team.players) {
+            const player = team.players[playerName];
 
             if (player.points > highestPoints) {
                 highestPoints = player.points;
@@ -275,9 +264,7 @@ function playerWithLongestName() {
     let longestName = "";
 
     for (const team of teams) {
-        const players = team.players;
-
-        for (const playerName in players) {
+        for (const playerName in team.players) {
             if (playerName.length > longestName.length) {
                 longestName = playerName;
             }
@@ -297,10 +284,8 @@ function doesLongNameStealATon() {
     let mostSteals = 0;
 
     for (const team of teams) {
-        const players = team.players;
-
-        for (const playerName in players) {
-            const player = players[playerName];
+        for (const playerName in team.players) {
+            const player = team.players[playerName];
 
             if (playerName.length > longestName.length) {
                 longestName = playerName;
